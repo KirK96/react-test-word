@@ -26,13 +26,13 @@ shouldComponentUpdate(nextProps, nextState) {
   render() {
     return (
         <menu type="context toolbar" className={`menu ${this.state.status ? "menu--open" : "menu--close"}`}>
-      	  <a className="menu__item" href="#0" onClick={ () => this.props.update(false) }>&#10006;</a>
-          <NavLink exact to="/" className="menu__item" onClick={ () => {
+      	  <NavLink exact className="menu__item" to="/menu" onClick={ () => this.props.update(false) }>&#10006;</NavLink>
+          <NavLink exact to="/" className="menu__item" activeClassName="menu__active" onClick={ () => {
             this.props.update(false);
             this.setState({ status: false });
             }
           }>Main Page</NavLink>
-      	  <NavLink to="/test" className="menu__item" onClick={ () => {
+        <NavLink  to="/test" className="menu__item" activeClassName="menu__active" onClick={ () => {
             this.props.update(false);
             this.setState({ status: false });
             }

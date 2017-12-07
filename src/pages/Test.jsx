@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 
 import Form from '../components/Form';
 
-class Test extends Component {
-    render() {
-        return (
-          <div className="wrapper">
-            <Form/>
-          </div>
-        );
-    }
+function Test() {
+    return (
+      <div className="wrapper" id="test">
+        <Form/>
+      </div>
+    );
 }
 
 export default Test;

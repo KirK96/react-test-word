@@ -21,7 +21,7 @@ class Main extends React.Component {
     render() {
       const info = this.state.search ? this.props.data.filter( obj => obj.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ) : this.props.data;
         return (
-            <div className="wrapper-theme">
+            <div className="wrapper-theme" id="main">
                 <input className ="search" type="text" ref="search" onChange={this.updateSearch}/>
               <h1 className="title">
                 Темы

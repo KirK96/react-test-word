@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 import Test from './pages/Test';
 import Main from './pages/Main';
@@ -27,14 +27,14 @@ class App extends Component {
         return (
           <div className="app">
             <a href="#0" className="sandwitch-wrapper" onClick={this.handleClick}><i className="sandwitch" ></i></a>
-            <Menu status={this.state.menu} update={this.handleUpdate}/>
+            <Route exact path="/"  render={ () => <Menu status={this.state.menu} update={this.handleUpdate}/>}/>
             <Switch>
-              <Route exact path="/" render={ () => <Main data={this.props.theme}/>}/>
-              <Route path="/test" component={Test}/>
+              <Route exact path="/" component={Test}/>
+              <Route path="/test" render={ () => <Main data={this.props.theme}/>}/>
             </Switch>
           </div>
         );
     }
 }
 
-export default App;
+export default withRouter(App);
