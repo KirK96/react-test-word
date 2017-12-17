@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.props.history.push('/theme');
+    this.props.history.push('/react-test-word/theme');
   }
     render() {
       

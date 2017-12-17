@@ -7,9 +7,9 @@ import MainPage from './pages/MainPage';
 function Router(props) {
   return (
     <Switch>
-      <Route exact path="/theme" render={ () => <MainPage data={props.theme}/>}/>
-      <Route exact path="/theme/:id" component={TestPage}/>
-      <Route path="/test" component={TestPage}/>
+      <Route exact path="/react-test-word/theme" render={ () => <MainPage data={props.theme}/>}/>
+      <Route exact path="/react-test-word/theme/:id" component={TestPage}/>
+      <Route path="/react-test-word/test" component={TestPage}/>
     </Switch>
   );
 }

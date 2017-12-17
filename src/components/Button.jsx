@@ -5,9 +5,9 @@ function Button(props) {
   
   return (
     props.value ?
-      <NavLink to ={`/theme/${props.id}`} className={props.className} id={props.id} onClick={ () => props.handleClick(props.id) }>{props.value}</NavLink>
+      <NavLink to ={`/react-test-word/theme/${props.id}`} className={props.className} id={props.id} onClick={ () => props.handleClick(props.id) }>{props.value}</NavLink>
       :
-      <NavLink to ={`/theme/${props.id}`} className={props.className} id={props.id} onClick={ () => props.handleClick(props.id) }></NavLink>
+      <NavLink to ={`/react-test-word/theme/${props.id}`} className={props.className} id={props.id} onClick={ () => props.handleClick(props.id) }></NavLink>
 
   );
 }
