@@ -1,6 +1,6 @@
 {
-  "name": "react-test-word",
-  "homepage": "https://kirk96.github.io/react-test-word",
+  "name": "test-word",
+  "homepage": "https://kirk96.github.io/test-word",
   "version": "0.0.1",
   "private": true,
   "devDependencies": {

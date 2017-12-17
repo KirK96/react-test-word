@@ -280,9 +280,6 @@ html {
   transform: translateX(-100%);
 }
 
-.menu__active {
-  border: 3px solid red;
-}
 .menu {
   align-items: center;
   background-color: #fff;
@@ -530,6 +527,7 @@ html {
     height: 5rem;
     margin-bottom: 3rem;
     text-align: center;
+    text-decoration: none;
     width: 50%;
 }
 

@@ -1,11 +1,13 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 function Button(props) {
+  
   return (
     props.value ?
-      <button className={props.className} id={props.id} {...props}>{props.value}</button>
+      <NavLink to ={`/theme/${props.id}`} className={props.className} id={props.id} onClick={ () => props.handleClick(props.id) }>{props.value}</NavLink>
       :
-      <button className={props.className} id={props.id} {...props}></button>
+      <NavLink to ={`/theme/${props.id}`} className={props.className} id={props.id} onClick={ () => props.handleClick(props.id) }></NavLink>
 
   );
 }

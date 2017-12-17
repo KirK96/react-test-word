@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-import Test from './pages/Test';
-import Main from './pages/Main';
 import Menu from './components/Menu';
+import Router from './Router';
 
 class App extends Component {
   constructor(props) {
@@ -23,15 +22,17 @@ class App extends Component {
   handleUpdate(status) {
     this.setState({ menu: status });
   }
+
+  componentWillMount() {
+    this.props.history.push('/theme');
+  }
     render() {
+      
         return (
           <div className="app">
             <a href="#0" className="sandwitch-wrapper" onClick={this.handleClick}><i className="sandwitch" ></i></a>
-            <Route exact path="/"  render={ () => <Menu status={this.state.menu} update={this.handleUpdate}/>}/>
-            <Switch>
-              <Route exact path="/" component={Test}/>
-              <Route path="/test" render={ () => <Main data={this.props.theme}/>}/>
-            </Switch>
+            <Menu status={this.state.menu} update={this.handleUpdate}/>
+            <Router theme={this.props.theme}/>
           </div>
         );
     }

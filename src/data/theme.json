@@ -25,13 +25,13 @@
         "key": "5"
     },
     {
-        "src": "transport.png",
-        "title": "Транспорт",
+        "src": "time.png",
+        "title": "Время",
         "key": "6"
     },
     {
-        "src": "time.png",
-        "title": "Время",
+        "src": "transport.png",
+        "title": "Транспорт",
         "key": "7"
     },
     {
