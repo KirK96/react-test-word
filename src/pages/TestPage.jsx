@@ -5,7 +5,7 @@ import Form from '../components/Form';
 function TestPage({ match }) {
     return (
       <div className="wrapper">
-        <Form index ={match.params.id}/>
+        <Form index={match.params.id}/>
       </div>
     );
 }

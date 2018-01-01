@@ -289,7 +289,6 @@ html {
   justify-content: flex-start;
   flex-wrap: wrap;
   height: 100vh;
-  //padding: 15rem 0;
   position: absolute;
   transition: .3s all ease-in-out;
   width: 60vw;

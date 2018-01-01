@@ -9,6 +9,8 @@ function getRandomDigit(min, max) {
 }
 
 function randomWord(index) {
+console.log(index);
+
   if (!index) {
     index = getRandomDigit(1, 10);
   }
@@ -43,7 +45,7 @@ class Form extends React.Component {
 
     if (wrapper.classList.contains('form__aprove')) {
         this.setState({
-           title: randomWord()
+           title: randomWord(this.props.index)
         });
       wrapper.classList.remove('form__aprove');
       answer.value = '';
@@ -63,7 +65,6 @@ class Form extends React.Component {
     const input = event.target.value;
     this.setState({ input });
   }
-
 
   render() {
     return(

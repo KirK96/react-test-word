@@ -1,7 +1,7 @@
 {
-  "name": "test-word",
-  "homepage": "https://kirk96.github.io/test-word",
-  "version": "0.0.1",
+  "name": "react-test-word",
+  "homepage": "https://kirk96.github.io/react-test-word",
+  "version": "0.0.4",
   "private": true,
   "devDependencies": {
     "react-scripts": "^1.0.7"
