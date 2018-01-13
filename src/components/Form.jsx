@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Button from './Button';
 import data from '../data/data.js';
 import word from '../data/keyWord0.js';
 
@@ -68,13 +67,14 @@ class Form extends React.Component {
 
   render() {
     return(
-      <form className="form" onSubmit={this.handleSubmit}>
-        <label htmlFor="answer" className="form__label">{this.state.title}</label>
-    		<div className="form__wrapper">
-          <input type="text" className="form__input" autoComplete="off" id="answer" onChange={this.handleChange}/>
+      <form className='form' onSubmit={this.handleSubmit}>
+        <label htmlFor='answer' className='form__label'>{this.state.title}</label>
+    		<div className='form__wrapper'>
+          <input type='text' className='form__input' autoComplete='off' id='answer' onChange={this.handleChange}/>
         </div>
-    		<label htmlFor="check" className="form__button">Check</label>
-    		<Button className="form__hide-button" id="check" type="submit" />
+    		<label htmlFor='check' className='form__button'>Check</label>
+
+    		<button className='form__hide-button' id='check' type='submit' />
     	</form>
     );
   }

@@ -13,7 +13,7 @@ class App extends Component {
   handleUpdate = status => this.setState({ menu: status });
 
   componentWillMount() {
-    this.props.history.push('/react-test-word/theme/');
+    this.props.history.push('/test-word/theme/');
   }
 
   render() { 

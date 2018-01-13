@@ -24,7 +24,7 @@ class Menu extends React.Component {
       <menu type="context toolbar" className={`menu ${status ? "menu--open" : "menu--close"}`}>
         <a className="menu__item" href="#0" onClick={ () => this.props.update(false) }>&#10006;</a>
         <NavLink 
-          exact to="/react-test-word/theme"
+          exact to="/test-word/theme"
           className="menu__item"
           onClick={() => {
             this.props.update(false);
@@ -34,7 +34,7 @@ class Menu extends React.Component {
           Theme
         </NavLink>
         <NavLink
-          to="/react-test-word/test"
+          to="/test-word/test"
           className="menu__item"
           onClick={() => {
             this.props.update(false);
