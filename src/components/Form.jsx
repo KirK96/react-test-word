@@ -1,4 +1,6 @@
 import React from 'react';
+import { observer } from 'mobx-react';
+import { observable } from 'mobx';
 
 import data from '../data/data.js';
 import word from '../data/keyWord0.js';
@@ -7,74 +9,122 @@ function getRandomDigit(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function getFewLetter(word, number, text) {
+  let beginWord = [];
+
+  for (let index = 0; index < number; index++) {
+    beginWord[index] = word.split('')[index];
+  }
+
+  return `${text} "${beginWord.join('').toUpperCase()}"`;
+}
+
 function randomWord(index) {
-console.log(index);
+  console.log(index);
 
   if (!index) {
     index = getRandomDigit(1, 10);
   }
 
-  let length = word[index].length;
+  let length = word[index].length - 1;
   let j = getRandomDigit(0, length);
+
+  console.log('index', index, j);
+  console.log('word', word[index][j]);
 
   return word[index][j];
 }
 
+@observer 
 class Form extends React.Component {
-  constructor(props) {
-    super(props);
+  @observable isRight;
+  @observable answer = '';
+  @observable enable = false;
+  @observable isShowTip = false;
+  @observable tooltipText = 'Подсказка: первая буква';
+  @observable title = randomWord(this.props.index);
 
-    this.state = {
-      title: randomWord(this.props.index),
-      input: ''
-    };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleSubmit(event) {
+  incorrectResponseСount = 0;
+  numberLetter = 1;
+  
+  handleSubmit = (event) => {
     event.preventDefault();
 
-    const item = this.state.title;
-    const engTranslate = data[item];
-    const wrapper = document.querySelector('.form__wrapper');
-    const answer = document.querySelector('#answer');
-    console.log(engTranslate);
+    this.incorrectResponseСount++;
+    this.engTranslate = data[this.title];
 
-    if (wrapper.classList.contains('form__aprove')) {
-        this.setState({
-           title: randomWord(this.props.index)
-        });
-      wrapper.classList.remove('form__aprove');
-      answer.value = '';
+    console.log('incorrectResponseСount', this.incorrectResponseСount);
+    console.log(this.engTranslate);
+
+    if (!this.answer) this.isShowTip = true; 
+
+    if (this.incorrectResponseСount === 4) {
+      this.isShowTip = true;
+      this.numberLetter = 3;
+      this.tooltipText = 'Подсказка: начало слова';
+    }
+    
+    console.log('isRight', this.isRight);
+
+    if (this.isRight) {
+      this.onSuccess();
       return;
     }
 
-    if ( engTranslate.toLowerCase() === this.state.input.toLowerCase() ) {
-      wrapper.classList.add('form__aprove');
-      wrapper.classList.remove('form__error');
-    } else {
-      wrapper.classList.add('form__error');
-      wrapper.classList.remove('form__aprove');
-    }
+    this.isRight = this.engTranslate.toLowerCase() === this.answer.toLowerCase();
+    this.enable = true;
   }
 
-  handleChange(event) {
-    const input = event.target.value;
-    this.setState({ input });
+  onSuccess = () => {
+    this.title = randomWord(this.props.index);
+
+    this.incorrectResponseСount = 0;
+    this.answer = '';
+    this.isRight = false;
+    this.enable = false;
+    this.isShowTip = false;
   }
 
-  render() {
+  handleChange = (event) => {
+    this.answer = event.target.value;
+  }
+
+  reset = () => {
+    this.enable = false;
+    this.answer = '';
+  }
+
+  render() {  
+    const tooltip = this.isShowTip ? getFewLetter(data[this.title], this.numberLetter, this.tooltipText) : '';
+    const isRight = this.enable ? (this.isRight ? 'form__aprove' : 'form__error') : '';
+    
     return(
       <form className='form' onSubmit={this.handleSubmit}>
-        <label htmlFor='answer' className='form__label'>{this.state.title}</label>
-    		<div className='form__wrapper'>
-          <input type='text' className='form__input' autoComplete='off' id='answer' onChange={this.handleChange}/>
+        <label htmlFor='answer' className='form__label'>{this.title}</label>
+    		<div className={`form__wrapper ${isRight}`}>
+          <div className={`form__tooltip ${this.isShowTip ? 'form__tooltip-show' : ''}`}>{tooltip}</div>
+          <input
+            type='text'
+            className='form__input'
+            autoComplete='off'
+            value={this.answer}
+            id='answer'
+            onChange={this.handleChange}
+          />
+          <div className="form__status" onClick={this.reset} />
         </div>
-    		<label htmlFor='check' className='form__button'>Check</label>
 
+    		<label htmlFor='check' className='form__button'>Проверить</label>
     		<button className='form__hide-button' id='check' type='submit' />
+
+        <a
+          href='#0'
+          className='form__button'
+          style={{ textDecoration: 'none' }}
+          onClick={this.onSuccess}
+        >
+          Следующее слово
+        </a>
     	</form>
     );
   }
