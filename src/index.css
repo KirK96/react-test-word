@@ -215,14 +215,6 @@ html {
   top: .64rem;
 }
 
-.inputAnim-enter {
-
-}
-
-.inputAnim-enter-active.inputAnim-enter {
-
-}
-
 .inputAnim-leave {
   transform: translateX(0);
   transition: all 1s;
@@ -241,15 +233,6 @@ html {
 .inputAnim-appear-active.inputAnim-appear {
   transform: translateX(0);
   transition: all 1s;
-}
-
-
-.formAnim-enter {
-
-}
-
-.formAnim-enter-active.formAnim-enter {
-
 }
 
 .formAnim-leave {
@@ -337,6 +320,43 @@ html {
   width: 25%;
 }
 
+.form__wrapper {
+  position: relative;
+  transition: 1s all;
+}
+
+.form__tooltip {
+  align-items: center;
+  border: 1px solid #A1CCBE;
+  border-radius: .5rem;
+  color: #A1CCBE;
+  display: flex;
+  font: 1.5rem/1.5rem 'RobotoLight';
+  height: 3rem;
+  justify-content: center;
+  opacity: 0;
+  position: relative;
+  width: 100%;
+}
+
+.form__tooltip-show {
+  opacity: 1;
+}
+
+.form__tooltip:before {
+  background-color: #50A388;
+  border: 1px solid #A1CCBE;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  bottom: -.6rem;
+  content: '';
+  height: 1rem;
+  position: absolute;
+  right: 15rem;
+  transform: rotate(-45deg);
+  width: 1rem;
+}
+
 .form__label {
   font: 2rem/2rem 'RobotoLight';
   margin-bottom: 8rem;
@@ -361,51 +381,28 @@ html {
   transition: .5s all;
 }
 
-.form__wrapper {
-  position: relative;
-  transition: 1s all;
-}
-
-.form__wrapper:before,
-.form__wrapper:after {
-  border: 1px solid #333;
-  content: "";
-  opacity: 0;
-  position: absolute;
-  transition: 0.5s all ease-out;
-  width: 0;
-}
-
-.form__wrapper:before {
-  height: 1.5rem;
-  right: 3rem;
-  top: 3.5rem;
-}
-
-.form__wrapper:after {
-  height: 2.5rem;
-  right: 2.5rem;
-  top: 2.5rem;
-}
-
 .form__aprove {
   position: relative;
   transition: 1s all;
 }
 
-.form__aprove:before {
+.form__aprove > .form__input {
+  border-color: green;
+}
+
+.form__aprove > .form__status:before {
   height: 1.5rem;
   opacity: 1;
-  right: 3rem;
-  top: 3.5rem;
+  right: .8rem;
+  top: 1rem;
   transform: rotate(-20deg);
 }
 
-.form__aprove:after {
+.form__aprove > .form__status:after {
   height: 2.5rem;
   opacity: 1;
-  right: 2.5rem;
-  top: 2.5rem;
+  right: .3rem;
+  top: 0rem;
   transform: rotate(10deg);
 }
 
@@ -414,24 +411,62 @@ html {
   transition: 1s all;
 }
 
-.form__error:before {
+.form__error > .form__input {
+  border-color: red;
+}
+
+.form__error > .form__status {
+  cursor: pointer;
+}
+
+.form__error > .form__status:before {
   height: 2.5rem;
   opacity: 1;
-  right: 3rem;
-  top: 2.5rem;
+  right: .7rem;
+  top: 0rem;
   transform: rotate(-30deg);
 }
 
-.form__error:after {
+.form__error > .form__status:after {
   height: 2.5rem;
   opacity: 1;
-  right: 3rem;
-  top: 2.5rem;
+  right: .7rem;
+  top: 0rem;
   transform: rotate(30deg);
 }
 
 .form__hide-button {
   display: none;
+}
+
+.form__status {
+  height: 2.5rem;
+  position: absolute;
+  right: 2.2rem;
+  top: 5.5rem;
+  width: 1.5rem;
+}
+
+.form__status:before,
+.form__status:after {
+  border: 1px solid #333;
+  content: "";
+  opacity: 0;
+  position: absolute;
+  transition: 0.5s all ease-out;
+  width: 0;
+}
+
+.form__status:before {
+  height: 1.5rem;
+  right: .8rem;
+  top: 1rem;
+}
+
+.form__status:after {
+  height: 2.5rem;
+  right: .3rem;
+  top: 0rem;
 }
 
 .form__button {

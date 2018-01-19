@@ -30,18 +30,18 @@
         "key": "6"
     },
     {
-        "src": "transport.png",
-        "title": "Транспорт",
-        "key": "7"
-    },
-    {
         "src": "form.png",
         "title": "Анкета",
-        "key": "8"
+        "key": "7"
     },
     {
         "src": "things.png",
         "title": "Вещи",
+        "key": "8"
+    },
+    {
+        "src": "transport.png",
+        "title": "Транспорт",
         "key": "9"
     },
     {
