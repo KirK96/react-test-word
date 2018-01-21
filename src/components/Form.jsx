@@ -1,4 +1,6 @@
 import React from 'react';
+import { observer } from 'mobx-react';
+import { observable } from 'mobx';
 
 import data from '../data/data.js';
 import word from '../data/keyWord0.js';
@@ -18,7 +20,7 @@ function getFewLetter(word, number, text) {
 }
 
 function randomWord(index) {
-console.log(index);
+  console.log(index);
 
   if (!index) {
     index = getRandomDigit(1, 10);
@@ -33,95 +35,73 @@ console.log(index);
   return word[index][j];
 }
 
+@observer 
 class Form extends React.Component {
-  constructor(props) {
-    super(props);
+  @observable isRight;
+  @observable answer = '';
+  @observable enable = false;
+  @observable isShow = false;
 
-    this.state = {
-      title: randomWord(this.props.index),
-      input: '',
-      tooltipText: 'Подсказка: первая буква',
-    };
-
-    this.counter = 0;
-    this.numberLetter = 1;
-  }
+  title = randomWord(this.props.index);
+  tooltipText = 'Подсказка: первая буква';
+  counter = 0;
+  numberLetter = 1;
 
   handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log('counter', this.counter);
     this.counter++;
+    this.engTranslate = data[this.title];
 
-    let wrapper = document.querySelector('.form__wrapper');
-    let answer = document.querySelector('#answer');
-    let tooltip = document.querySelector('.form__tooltip');
+    console.log('counter', this.counter);
+    console.log(this.engTranslate);
 
-    tooltip.classList.remove('form__tooltip-show');
-
-    const item = this.state.title;
-    const engTranslate = data[item];
-
-    console.log(engTranslate);
-
-    if (!answer.value) {
-      tooltip.classList.add('form__tooltip-show');
+    if (!this.answer) {
+      this.isShow = true;
     } 
 
-    if (this.counter == 4) {
+    if (this.counter === 4) {
+      this.isShow = true;
       this.numberLetter = 3;
-      tooltip.classList.add('form__tooltip-show');
-      this.setState({ tooltipText: 'Подсказка: начало слова' });
+      this.tooltipText = 'Подсказка: начало слова';
     }
     
-    if (wrapper.classList.contains('form__aprove')) {
-      this.setState({
-          title: randomWord(this.props.index)
-      });
+    console.log('isRight', this.isRight);
+
+    if (this.isRight) {
+      this.title = randomWord(this.props.index);
 
       this.counter = 0;
-      wrapper.classList.remove('form__aprove');
-      answer.value = '';
+      this.answer = '';
+      this.isRight = false;
+      this.enable = false;
 
       return;
     }
 
-    if (engTranslate.toLowerCase() === this.state.input.toLowerCase()) {
-      wrapper.classList.add('form__aprove');
-      wrapper.classList.remove('form__error');
-    } else {
-      wrapper.classList.add('form__error');
-      wrapper.classList.remove('form__aprove');
-    }
+    this.isRight = this.engTranslate.toLowerCase() === this.answer.toLowerCase();
+    this.enable = true;
   }
 
   handleChange = (event) => {
-    const input = event.target.value;
-    this.setState({ input });
+    this.answer = event.target.value;
   }
 
   reset = () => {
-    let answer = document.querySelector('#answer');
-    let wrapper = document.querySelector('.form__wrapper');
-
-    if (wrapper.classList.contains('form__error')) {
-      wrapper.classList.remove('form__error');
-      answer.value = '';
-    }
+    this.enable = false;
+    this.answer = '';
   }
 
-  render() { 
-   // const temp = engTranslate.toLowerCase() === this.state.input.toLowerCase();
-   // console.log(temp);
-    
-    const tooltip = getFewLetter(data[this.state.title], this.numberLetter, this.state.tooltipText);
+  render() {  
+    const tooltip = this.isShow ? getFewLetter(data[this.title], this.numberLetter, this.tooltipText) : '';
+    const isRight = this.enable ? (this.isRight ? 'form__aprove' : 'form__error') : '';
     
     return(
       <form className='form' onSubmit={this.handleSubmit}>
-        <label htmlFor='answer' className='form__label'>{this.state.title}</label>
-    		<div className='form__wrapper'>
-          <div className="form__tooltip">{tooltip}</div>
-          <input type='text' className='form__input' autoComplete='off' id='answer' onChange={this.handleChange} />
+        <label htmlFor='answer' className='form__label'>{this.title}</label>
+    		<div className={`form__wrapper ${isRight}`}>
+          <div className={`form__tooltip ${this.isShow ? 'form__tooltip-show' : ''}`}>{tooltip}</div>
+          <input type='text' className='form__input' autoComplete='off' value={this.answer} id='answer' onChange={this.handleChange} />
           <div className="form__status" onClick={this.reset} />
         </div>
     		<label htmlFor='check' className='form__button'>Check</label>
