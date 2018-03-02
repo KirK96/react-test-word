@@ -40,28 +40,26 @@ class Form extends React.Component {
   @observable isRight;
   @observable answer = '';
   @observable enable = false;
-  @observable isShow = false;
+  @observable isShowTip = false;
+  @observable tooltipText = 'Подсказка: первая буква';
 
-  title = randomWord(this.props.index);
-  tooltipText = 'Подсказка: первая буква';
-  counter = 0;
+  incorrectResponseСount = 0;
   numberLetter = 1;
+  title = randomWord(this.props.index);
 
   handleSubmit = (event) => {
     event.preventDefault();
 
-    this.counter++;
+    this.incorrectResponseСount++;
     this.engTranslate = data[this.title];
 
-    console.log('counter', this.counter);
+    console.log('incorrectResponseСount', this.incorrectResponseСount);
     console.log(this.engTranslate);
 
-    if (!this.answer) {
-      this.isShow = true;
-    } 
+    if (!this.answer) this.isShowTip = true; 
 
-    if (this.counter === 4) {
-      this.isShow = true;
+    if (this.incorrectResponseСount === 4) {
+      this.isShowTip = true;
       this.numberLetter = 3;
       this.tooltipText = 'Подсказка: начало слова';
     }
@@ -71,10 +69,11 @@ class Form extends React.Component {
     if (this.isRight) {
       this.title = randomWord(this.props.index);
 
-      this.counter = 0;
+      this.incorrectResponseСount = 0;
       this.answer = '';
       this.isRight = false;
       this.enable = false;
+      this.isShowTip = false;
 
       return;
     }
@@ -93,20 +92,30 @@ class Form extends React.Component {
   }
 
   render() {  
-    const tooltip = this.isShow ? getFewLetter(data[this.title], this.numberLetter, this.tooltipText) : '';
+    const tooltip = this.isShowTip ? getFewLetter(data[this.title], this.numberLetter, this.tooltipText) : '';
     const isRight = this.enable ? (this.isRight ? 'form__aprove' : 'form__error') : '';
     
     return(
       <form className='form' onSubmit={this.handleSubmit}>
         <label htmlFor='answer' className='form__label'>{this.title}</label>
     		<div className={`form__wrapper ${isRight}`}>
-          <div className={`form__tooltip ${this.isShow ? 'form__tooltip-show' : ''}`}>{tooltip}</div>
-          <input type='text' className='form__input' autoComplete='off' value={this.answer} id='answer' onChange={this.handleChange} />
+          <div className={`form__tooltip ${this.isShowTip ? 'form__tooltip-show' : ''}`}>{tooltip}</div>
+          <input
+            type='text'
+            className='form__input'
+            autoComplete='off'
+            value={this.answer}
+            id='answer'
+            onChange={this.handleChange}
+          />
           <div className="form__status" onClick={this.reset} />
         </div>
-    		<label htmlFor='check' className='form__button'>Check</label>
 
+    		<label htmlFor='check' className='form__button'>Проверить</label>
     		<button className='form__hide-button' id='check' type='submit' />
+
+    		<label htmlFor='nextWord' className='form__button'>Следующее слово</label>
+    		<button className='form__hide-button' id='nextWord' onClick={null} />
     	</form>
     );
   }

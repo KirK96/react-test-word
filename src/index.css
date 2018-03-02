@@ -215,46 +215,6 @@ html {
   top: .64rem;
 }
 
-.inputAnim-leave {
-  transform: translateX(0);
-  transition: all 1s;
-}
-
-.inputAnim-leave-active.inputAnim-leave {
-  transform: translateX(200%);
-  transition: all 1s;
-}
-
-.inputAnim-appear {
-  transform: translateX(-200%);
-  transition: all 1s;
-}
-
-.inputAnim-appear-active.inputAnim-appear {
-  transform: translateX(0);
-  transition: all 1s;
-}
-
-.formAnim-leave {
-  transform: translateX(0);
-  transition: all 1s;
-}
-
-.formAnim-leave-active.formAnim-leave {
-  transform: translateX(200%);
-  transition: all 1s;
-}
-
-.formAnim-appear {
-  transform: translateX(-200%);
-  transition: all 1s;
-}
-
-.formAnim-appear-active.formAnim-appear {
-  transform: translateX(0);
-  transition: all 1s;
-}
-
 .menu--open {
   transform: translateX(0);
 }
@@ -279,14 +239,12 @@ html {
 }
 
 @keyframes menu {
-
   0% {
     transform: translateX(-100%);
   }
   70% {
     transform: translateX(0%) scaleX(1.5);
   }
-
 }
 
 .menu__item {
@@ -472,6 +430,7 @@ html {
 .form__button {
   border: 3px solid #A1CCBE;
   color: #A1CCBE;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
