@@ -42,11 +42,11 @@ class Form extends React.Component {
   @observable enable = false;
   @observable isShowTip = false;
   @observable tooltipText = 'Подсказка: первая буква';
+  @observable title = randomWord(this.props.index);
 
   incorrectResponseСount = 0;
   numberLetter = 1;
-  title = randomWord(this.props.index);
-
+  
   handleSubmit = (event) => {
     event.preventDefault();
 
@@ -67,19 +67,22 @@ class Form extends React.Component {
     console.log('isRight', this.isRight);
 
     if (this.isRight) {
-      this.title = randomWord(this.props.index);
-
-      this.incorrectResponseСount = 0;
-      this.answer = '';
-      this.isRight = false;
-      this.enable = false;
-      this.isShowTip = false;
-
+      this.onSuccess();
       return;
     }
 
     this.isRight = this.engTranslate.toLowerCase() === this.answer.toLowerCase();
     this.enable = true;
+  }
+
+  onSuccess = () => {
+    this.title = randomWord(this.props.index);
+
+    this.incorrectResponseСount = 0;
+    this.answer = '';
+    this.isRight = false;
+    this.enable = false;
+    this.isShowTip = false;
   }
 
   handleChange = (event) => {
@@ -114,8 +117,14 @@ class Form extends React.Component {
     		<label htmlFor='check' className='form__button'>Проверить</label>
     		<button className='form__hide-button' id='check' type='submit' />
 
-    		<label htmlFor='nextWord' className='form__button'>Следующее слово</label>
-    		<button className='form__hide-button' id='nextWord' onClick={null} />
+        <a
+          href='#0'
+          className='form__button'
+          style={{ textDecoration: 'none' }}
+          onClick={this.onSuccess}
+        >
+          Следующее слово
+        </a>
     	</form>
     );
   }
