@@ -554,19 +554,64 @@ html {
   }
 
   .c-theme__submit {
-      align-items: center;
-      background-color: #50A388;
-      border: 3px solid #A1CCBE;
-      color: #A1CCBE;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      flex-wrap: wrap;
-      font: 2rem/2rem 'RobotoLight';
-      height: 5rem;
-      margin-bottom: 3rem;
-      text-align: center;
-      width: 90%;
+    align-items: center;
+    background-color: #50A388;
+    border: 3px solid #A1CCBE;
+    color: #A1CCBE;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    font: 2rem/2rem 'RobotoLight';
+    height: 5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    width: 90%;
   }
+}
 
+.circle {
+  top: 50px;
+  left: 100px;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+/* .circle:before {
+  top: 0;
+  left: 0;
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 80px solid rgba(0, 230, 12, .5);
+    border-left-color: rgba(0, 42, 230, 0.5);
+    border-right-color: rgba(230, 0, 50, 0.5);
+    border-bottom-color: rgba(230, 176, 0, 0.5);
+} */
+
+.pointA {
+  cursor: pointer;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  /* background: #A1CCBE; */
+    border: 15px solid rgba(0, 230, 12, .5);
+    border-left-color: rgba(0, 42, 230, 0.5);
+    border-right-color: rgba(230, 0, 50, 0.5);
+    border-bottom-color: rgba(230, 176, 0, 0.5);
+  z-index: 1;
+}
+
+#pointO {
+  cursor: pointer;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.circle-wrapper {
+  position: absolute;
+  top: 40px;
+  left: 40px;
 }
