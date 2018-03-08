@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 
 import data from '../data/data.js';
-import word from '../data/keyWord0.js';
+import word from '../data/keyWord.js';
 
 function getRandomDigit(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;

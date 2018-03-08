@@ -144,7 +144,7 @@
 	'ванная':	'bathroom',
 	'душ':	'shower',
 	'туалет':	'toilet',
-	'ухня':	'kitchen',
+	'кухня':	'kitchen',
 	'коридор':	'hall',
 	'балкон':	'balcony',
 	'пол':	'floor',

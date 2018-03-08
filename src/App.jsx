@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import Menu from './components/Menu';
 import Router from './Router';
+import CircleMenu from './components/CircleMenu';
 
 class App extends Component {
   state = {
@@ -16,14 +17,15 @@ class App extends Component {
     this.props.history.push('/test-word/test/');
   }
 
-  render() { 
+  render() {
     const { menu } = this.state;
 
     return (
-      <div className="app">
-        <a href="#0" className="sandwitch-wrapper" onClick={this.handleClick}><i className="sandwitch" ></i></a>
-        <Menu status={menu} update={this.handleUpdate}/>
-        <Router theme={this.props.theme}/>
+      <div className='app'>
+        <a href='#0' className='sandwitch-wrapper' onClick={this.handleClick}><i className='sandwitch'></i></a>
+        {/* <CircleMenu rRunner={8} rCircle={100} /> */}
+        <Menu status={menu} update={this.handleUpdate} />
+        <Router theme={this.props.theme} />
       </div>
     );
   }
