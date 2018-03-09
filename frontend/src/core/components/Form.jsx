@@ -2,8 +2,8 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 
-import data from '../data/data.js';
-import word from '../data/keyWord.js';
+import data from '../backend/data.js'; // Переделать
+import word from '../backend/keyWord.js';
 
 function getRandomDigit(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -35,7 +35,7 @@ function randomWord(index) {
   return word[index][j];
 }
 
-@observer 
+@observer
 class Form extends React.Component {
   @observable isRight;
   @observable answer = '';
@@ -46,7 +46,7 @@ class Form extends React.Component {
 
   incorrectResponseСount = 0;
   numberLetter = 1;
-  
+
   handleSubmit = (event) => {
     event.preventDefault();
 
@@ -56,14 +56,14 @@ class Form extends React.Component {
     console.log('incorrectResponseСount', this.incorrectResponseСount);
     console.log(this.engTranslate);
 
-    if (!this.answer) this.isShowTip = true; 
+    if (!this.answer) this.isShowTip = true;
 
     if (this.incorrectResponseСount === 4) {
       this.isShowTip = true;
       this.numberLetter = 3;
       this.tooltipText = 'Подсказка: начало слова';
     }
-    
+
     console.log('isRight', this.isRight);
 
     if (this.isRight) {
@@ -94,14 +94,14 @@ class Form extends React.Component {
     this.answer = '';
   }
 
-  render() {  
+  render() {
     const tooltip = this.isShowTip ? getFewLetter(data[this.title], this.numberLetter, this.tooltipText) : '';
     const isRight = this.enable ? (this.isRight ? 'form__aprove' : 'form__error') : '';
-    
-    return(
+
+    return (
       <form className='form' onSubmit={this.handleSubmit}>
         <label htmlFor='answer' className='form__label'>{this.title}</label>
-    		<div className={`form__wrapper ${isRight}`}>
+        <div className={`form__wrapper ${isRight}`}>
           <div className={`form__tooltip ${this.isShowTip ? 'form__tooltip-show' : ''}`}>{tooltip}</div>
           <input
             type='text'
@@ -114,8 +114,8 @@ class Form extends React.Component {
           <div className="form__status" onClick={this.reset} />
         </div>
 
-    		<label htmlFor='check' className='form__button'>Проверить</label>
-    		<button className='form__hide-button' id='check' type='submit' />
+        <label htmlFor='check' className='form__button'>Проверить</label>
+        <button className='form__hide-button' id='check' type='submit' />
 
         <a
           href='#0'
@@ -125,7 +125,7 @@ class Form extends React.Component {
         >
           Следующее слово
         </a>
-    	</form>
+      </form>
     );
   }
 }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import Menu from './components/Menu';
-import Router from './Router';
-import CircleMenu from './components/CircleMenu';
+import Menu from './core/components/Menu';
+import Router from './Routes';
+// import CircleMenu from './core/components/CircleMenu';
 
 class App extends Component {
   state = {
