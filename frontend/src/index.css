@@ -18722,7 +18722,7 @@ body {
   margin-bottom: 3rem;
   padding: 4px;
   text-align: center;
-  width: 60%;
+  width: 100%;
 }
 .form__check {
   border: 1px solid #333;
@@ -18802,9 +18802,6 @@ body {
   outline: none;
 }
 @media only screen and (max-device-width: 768px) {
-  .form {
-    width: 100vw;
-  }
   .form__label {
     font: 2rem/2rem 'RobotoLight';
     text-align: center;

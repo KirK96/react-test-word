@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable } from 'mobx';
+import { action, observable } from 'mobx';
 
 import data from '../backend/data.js'; // Переделать
 import word from '../backend/keyWord.js';
@@ -85,7 +85,17 @@ class Form extends React.Component {
     this.isShowTip = false;
   }
 
-  handleChange = (event) => {
+  skipWord = (event) => {
+    event.preventDefault();
+    this.title = randomWord(this.props.index);
+
+    this.incorrectResponseСount = 0;
+    this.answer = '';
+    this.isShowTip = false;
+  }
+
+  @action.bound
+  handleChange(event) {
     this.answer = event.target.value;
   }
 
@@ -97,10 +107,12 @@ class Form extends React.Component {
   render() {
     const tooltip = this.isShowTip ? getFewLetter(data[this.title], this.numberLetter, this.tooltipText) : '';
     const isRight = this.enable ? (this.isRight ? 'form__aprove' : 'form__error') : '';
-    console.log('width', this.props.test);
+    const { test, width } = this.props;
+    console.log('test', test);
+
 
     return (
-      <form className='form' onSubmit={this.handleSubmit} style={{}}>
+      <form className='form' onSubmit={this.handleSubmit} style={{ width: width || '90vw' }}>
         <label htmlFor='answer' className='form__label'>{this.title}</label>
         <div className={`form__wrapper ${isRight}`}>
           <div className={`form__tooltip ${this.isShowTip ? 'form__tooltip-show' : ''}`}>{tooltip}</div>
@@ -116,16 +128,14 @@ class Form extends React.Component {
         </div>
 
         <label htmlFor='check' className='form__button'>Проверить</label>
-        <button className='form__hide-button' id='check' type='submit' />
 
-        <a
-          href='#0'
-          className='form__button'
-          style={{ textDecoration: 'none' }}
-          onClick={this.onSuccess}
-        >
-          Следующее слово
-        </a>
+        {test
+          ? <button className='form__hide-button' id='check' onClick={this.props.nextStep} type='submit' />
+          : <button className='form__hide-button' id='check' type='submit' />
+        }
+
+        <label htmlFor='next' className='form__button'>Следующее слово</label>
+        <button id='next' className='form__hide-button' onClick={this.skipWord} />
       </form>
     );
   }
