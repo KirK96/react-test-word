@@ -1,7 +1,6 @@
 import React from 'react';
-import { Button } from 'ant-des'
 
-class CardAnswer extends React.Component {
+class TestCard extends React.Component {
     render() {
         return (
             <div>
@@ -11,4 +10,4 @@ class CardAnswer extends React.Component {
     }
 }
 
-export default CardAnswer;
+export default TestCard;

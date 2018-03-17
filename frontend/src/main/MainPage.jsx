@@ -25,11 +25,8 @@ class MainPage extends React.Component {
         <input className="search" type="text" ref="search" onChange={this.updateSearch} />
         <h1 className="title">
           Темы
-              </h1>
-        {info.map((value, index) =>
-          <Card data={value} key={index} />
-        )
-        }
+        </h1>
+        {info.map((value, index) => <Card data={value} key={index} />)}
       </div>
     );
   }

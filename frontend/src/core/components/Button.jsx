@@ -2,16 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Button(props) {
-  
+
   return (
-      <Link
-        to={`/test-word/theme/${props.id}`}
-        className={props.className}
-        id={props.id}
-        onClick={ () => props.handleClick(props.id) }
-      >
-        {props.value ? props.value : ''}
-      </Link>
+    <Link
+      to={props.path}
+      className={props.className}
+      id={props.id}
+      onClick={() => props.handleClick(props.id)}
+    >
+      {props.value ? props.value : ''}
+    </Link>
   );
 }
 

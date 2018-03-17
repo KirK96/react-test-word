@@ -16,7 +16,7 @@ function getFewLetter(word, number, text) {
     beginWord[index] = word.split('')[index];
   }
 
-  return `${text} "${beginWord.join('').toUpperCase()}"`;
+  return `${text} ${beginWord.join('').toUpperCase()}`;
 }
 
 function randomWord(index) {
@@ -97,9 +97,10 @@ class Form extends React.Component {
   render() {
     const tooltip = this.isShowTip ? getFewLetter(data[this.title], this.numberLetter, this.tooltipText) : '';
     const isRight = this.enable ? (this.isRight ? 'form__aprove' : 'form__error') : '';
+    console.log('width', this.props.test);
 
     return (
-      <form className='form' onSubmit={this.handleSubmit}>
+      <form className='form' onSubmit={this.handleSubmit} style={{}}>
         <label htmlFor='answer' className='form__label'>{this.title}</label>
         <div className={`form__wrapper ${isRight}`}>
           <div className={`form__tooltip ${this.isShowTip ? 'form__tooltip-show' : ''}`}>{tooltip}</div>
