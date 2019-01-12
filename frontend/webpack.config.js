@@ -11,20 +11,19 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 
-const WEBPACK_SPRITES_PATH = 'src/assets/images/themes';
-const DEV_WEBPACK_HOST = 'localhost';
-const DEV_WEBPACK_PORT = '3000';
+const WEBPACK_SPRITES_PATH = 'assets/images/themes';
+const DEV_WEBPACK_HOST = process.env.DEV_WEBPACK_HOST;
+const DEV_WEBPACK_PORT = process.env.DEV_WEBPACK_PORT;
 const DEBUG = JSON.stringify(process.env.DEBUG === 'true');
 
 /** @type {webpack.Configuration} */
 const config = {
-  // devtool: 'soorse-map',
   mode: __DEV__ ? 'development' : 'production',
   bail: !__DEV__,
   watch: true,
 
   entry: {
-    app: path.join(root, 'src/init.tsx'),
+    app: path.join(root, 'app/init.tsx'),
     sprites: glob.sync(path.join(WEBPACK_SPRITES_PATH, '*.png')),
   },
 
@@ -37,13 +36,13 @@ const config = {
 
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json', '.less'],
-    modules: [root, path.resolve(root, 'src'), 'node_modules'],
+    modules: [root, path.resolve(root, 'app'), path.resolve(root, 'assets'), 'node_modules'],
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Tester',
-      favicon: 'src/assets/images/themes/feel.png',
+      title: 'Tester Word',
+      favicon: path.join(WEBPACK_SPRITES_PATH, '/feel.png'),
       meta: { viewport: 'width=device-width, initial-scale=1', 'theme-color': '#50A388' },
     }),
     new MiniCssExtractPlugin({ filename: __DEV__ ? '[name]-[hash:8].css' : '[name].css' }),
@@ -56,18 +55,9 @@ const config = {
     strictExportPresence: true,
     rules: [
       {
-        test: /\.(jsx)|(tsx)?$/,
+        test: /\.(jsx?)|(tsx?)?$/,
+        loader: 'babel-loader',
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['react', 'env', 'stage-0'],
-              cacheDirectory: true,
-            },
-          },
-          'ts-loader?transpileOnly=true',
-        ],
       },
       {
         test: /\.(jpe?g|png|gif|svg|eot|ttf|woff2?)$/,
@@ -96,7 +86,8 @@ const config = {
         test: /\.less$/,
         use: [
           __DEV__ ? 'style-loader' : MiniCssExtractPlugin.loader,
-          `css-loader?minimize=${!__DEV__}`,
+          'css-loader',
+          'less-loader',
           {
             loader: 'less-loader',
             options: { javascriptEnabled: true },
@@ -105,10 +96,7 @@ const config = {
       },
       {
         test: /\.(css)$/,
-        use: [
-          __DEV__ ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'css-loader',
-        ],
+        use: [__DEV__ ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
@@ -138,7 +126,6 @@ const config = {
     },
   },
 };
-
 
 if (__DEV__) {
   config.devServer = {
@@ -175,15 +162,15 @@ if (__DEV__) {
   };
   config.output.publicPath = '/';
   config.plugins.unshift(new webpack.NamedModulesPlugin());
-  config.plugins.push(new ForkTsCheckerWebpackPlugin({
-    tslint: './tslint.json',
-    eslint: './eslintrc.json',
-  }));
+  config.plugins.push(
+    new ForkTsCheckerWebpackPlugin({
+      tslint: './tslint.json',
+      eslint: './eslintrc',
+    }),
+  );
   // config.devtool = 'source-map';
 } else {
-  config.plugins.push(
-    new webpack.optimize.OccurrenceOrderPlugin(),
-  );
+  config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
 }
 
 module.exports = config;
