@@ -1,5 +1,0 @@
-{
-    "extends": "airbnb",
-    "linebreak-style": ["error", "unix"],
-    "typescript/interface-name-prefix": "always"
-}

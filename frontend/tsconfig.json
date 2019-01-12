@@ -2,36 +2,27 @@
   "compilerOptions": {
     "allowJs": true,
     "checkJs": false,
-    "outDir": "./dist/",
+    "outDir": "./build/",
     "noImplicitAny": false,
     "noUnusedParameters": true,
+    "noErrorTruncation": true,
     "module": "es2015",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "pretty": true,
-    "target": "es2015",
+    "sourceMap": false,
+    "target": "esnext",
     "noUnusedLocals": true,
-    "lib": [
-      "es6",
-      "es7",
-      "esnext",
-      "dom"
-    ],
+    "noEmit": true,
+    "lib": ["es6", "es7", "esnext", "dom"],
     "jsx": "preserve",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "src/*": [
-        "src/*"
-      ]
+      "app/*": ["app/*"]
     }
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "src/core/backend/*"
-  ],
+  "include": ["app/**/*"]
 }

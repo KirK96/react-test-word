@@ -1,9 +1,7 @@
 import React from 'react';
-import { observer } from 'mobx-react';
-import { observable } from 'mobx';
 
-import data from 'src/app/core/backend/data.ts'; // Переделать
-import word from 'src/app/core/backend/keyWord.ts';
+import data from 'app/core/backend/data.ts'; // Переделать
+import word from 'app/core/backend/keyWord.ts';
 
 interface IProps {
   index: number;
@@ -16,6 +14,7 @@ function getRandomDigit(min, max) {
 function getFewLetter(currentWord, numberLetter, text) {
   const beginWord = [];
 
+  // tslint:disable-next-line:no-increment-decrement
   for (let index = 0; index < numberLetter; index++) {
     beginWord[index] = currentWord.split('')[index];
   }
@@ -23,7 +22,8 @@ function getFewLetter(currentWord, numberLetter, text) {
   return `${text} '${beginWord.join('').toUpperCase()}'`;
 }
 
-function randomWord(index) {
+function randomWord(i: number) {
+  let index = i;
   console.log(index);
 
   if (!index) {
@@ -39,14 +39,13 @@ function randomWord(index) {
   return word[index][j];
 }
 
-@observer
 class Form extends React.Component<IProps> {
-  @observable isRight;
-  @observable answer = '';
-  @observable enable = false;
-  @observable isShowTip = false;
-  @observable tooltipText = 'Подсказка: первая буква';
-  @observable title = randomWord(this.props.index);
+  isRight = false;
+  answer: string = '';
+  enable = false;
+  isShowTip = false;
+  tooltipText = 'Подсказка: первая буква';
+  title = randomWord(this.props.index);
 
   incorrectResponseСount = 0;
   numberLetter = 1;
@@ -54,13 +53,15 @@ class Form extends React.Component<IProps> {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    this.incorrectResponseСount++;
+    this.incorrectResponseСount += 1;
     const engTranslate = data[this.title];
 
     console.log('incorrectResponseСount', this.incorrectResponseСount);
     console.log(engTranslate);
 
-    if (!this.answer) { this.isShowTip = true; }
+    if (!this.answer) {
+      this.isShowTip = true;
+    }
 
     if (this.incorrectResponseСount === 4) {
       this.isShowTip = true;
@@ -77,7 +78,7 @@ class Form extends React.Component<IProps> {
 
     this.isRight = engTranslate.toLowerCase() === this.answer.toLowerCase();
     this.enable = true;
-  }
+  };
 
   onSuccess = () => {
     this.title = randomWord(this.props.index);
@@ -87,43 +88,51 @@ class Form extends React.Component<IProps> {
     this.isRight = false;
     this.enable = false;
     this.isShowTip = false;
-  }
+  };
 
   handleChange = (event) => {
     this.answer = event.target.value;
-  }
+  };
 
   reset = () => {
     this.enable = false;
     this.answer = '';
-  }
+  };
 
   render() {
-    const tooltip = this.isShowTip ? getFewLetter(data[this.title], this.numberLetter, this.tooltipText) : '';
+    const tooltip = this.isShowTip
+      ? getFewLetter(data[this.title], this.numberLetter, this.tooltipText)
+      : '';
     const isRight = this.enable ? (this.isRight ? 'form__aprove' : 'form__error') : '';
 
     return (
-      <form className='form' onSubmit={this.handleSubmit}>
-        <label htmlFor='answer' className='form__label'>{this.title}</label>
+      <form className="form" onSubmit={this.handleSubmit}>
+        <label htmlFor="answer" className="form__label">
+          {this.title}
+        </label>
         <div className={`form__wrapper ${isRight}`}>
-          <div className={`form__tooltip ${this.isShowTip ? 'form__tooltip-show' : ''}`}>{tooltip}</div>
+          <div className={`form__tooltip ${this.isShowTip ? 'form__tooltip-show' : ''}`}>
+            {tooltip}
+          </div>
           <input
-            type='text'
-            className='form__input'
-            autoComplete='off'
+            type="text"
+            className="form__input"
+            autoComplete="off"
             value={this.answer}
-            id='answer'
+            id="answer"
             onChange={this.handleChange}
           />
-          <div className='form__status' onClick={this.reset} />
+          <div className="form__status" onClick={this.reset} />
         </div>
 
-        <label htmlFor='check' className='form__button'>Проверить</label>
-        <button className='form__hide-button' id='check' type='submit' />
+        <label htmlFor="check" className="form__button">
+          Проверить
+        </label>
+        <button className="form__hide-button" id="check" type="submit" />
 
         <a
-          href='#0'
-          className='form__button'
+          href="#0"
+          className="form__button"
           style={{ textDecoration: 'none' }}
           onClick={this.onSuccess}
         >

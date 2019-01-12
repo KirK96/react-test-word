@@ -1,7 +1,7 @@
 import React from 'react';
 import { bind } from 'lodash-decorators';
 
-import Button from 'src/app/core/components/Button';
+import Button from 'app/core/components/Button';
 
 export interface ITheme {
   src: string;
@@ -23,17 +23,17 @@ class Card extends React.Component<IProps> {
     const { theme } = this.props;
 
     return (
-      <div className='c-theme'>
+      <div className="c-theme">
         <img
-          className='c-theme__icon'
+          className="c-theme__icon"
           src={`/assets/images/themes/${theme.src}`}
           onContextMenu={(event) => event.preventDefault()}
-          alt='img'
+          alt="img"
         />
-        <h2 className='c-theme__title'>{theme.title}</h2>
+        <h2 className="c-theme__title">{theme.title}</h2>
         <Button
-          className='c-theme__submit'
-          value='Начать'
+          className="c-theme__submit"
+          value="Начать"
           id={theme.key}
           handleClick={this.handleClick}
         />

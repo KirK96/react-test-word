@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Form from 'src/app/core/components/Form';
+import Form from 'app/core/components/Form';
 
 interface IProps {
   match: any;
@@ -9,7 +9,7 @@ interface IProps {
 class TestPage extends React.Component<IProps> {
   render() {
     return (
-      <div className='wrapper'>
+      <div className="wrapper">
         <Form index={this.props.match.params.id} />
       </div>
     );
